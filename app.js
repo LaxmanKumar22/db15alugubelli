@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const connectionString =  process.env.MONGO_CON 
+const connectionString =  'mongodb+srv://lucky510:Laxman12@cluster0.yadva.mongodb.net/cluster0?retryWrites=true&w=majority'
 mongoose = require('mongoose'); 
 mongoose.connect(connectionString,  
 {useNewUrlParser: true, 
@@ -68,7 +68,7 @@ async function recreateDB(){
   await kite.deleteMany(); 
  
   let instance1 = new 
-kite({brand:"d",  color:'pink', 
+kite({Brand:"d",  color:'pink', 
 price:25.4}); 
   instance1.save( function(err,doc) { 
       if(err) return console.error(err); 
@@ -76,7 +76,7 @@ price:25.4});
   }); 
 
   let instance2 = new 
-kite({brand:"e",  color:'purple', 
+kite({Brand:"e",  color:'purple', 
 price:25.4}); 
   instance2.save( function(err,doc) { 
       if(err) return console.error(err); 
@@ -84,7 +84,7 @@ price:25.4});
   }); 
 
   let instance3 = new 
-kite({brand:"r",  color:'orange', 
+kite({Brand:"r",  color:'orange', 
 price:25.4}); 
   instance3.save( function(err,doc) { 
       if(err) return console.error(err); 
