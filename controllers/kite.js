@@ -90,7 +90,7 @@ exports.kite_create_post = async function (req, res) {
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
     // {"kite_type":"goat", "cost":12, "size":"large"}
-    document.brand = re.body.brand;
+    document.Brand = req.body.Brand;
     document.color = req.body.color;
     document.price = req.body.price;
     try {
@@ -102,3 +102,53 @@ exports.kite_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
+
+// Handle building the view for creating a kite. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.kite_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('kitecreate', { title: 'Kite Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+exports.kite_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await kite.findById(req.query.id)
+    res.render('kiteupdate', { title: 'kite Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    exports.costume_delete_Page = async function(req, res) {
+console.log("Delete view for id " + req.query.id)
+try{
+result = await Costume.findById(req.query.id)
+res.render('costumedelete', { title: 'Costume Delete', toShow:
+result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+exports.costume_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await kite.findById(req.query.id)
+    res.render('kitedelete', { title: 'kite Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
