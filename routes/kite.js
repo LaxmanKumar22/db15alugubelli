@@ -7,6 +7,7 @@ var router = express.Router();
 
 /* GET kites */
  router.get('/', kite_controlers.kite_view_all_Page );
+ router.get('/detail', kite_controlers.kite_view_one_Page);
 module.exports = router;
 
 module.exports = router;

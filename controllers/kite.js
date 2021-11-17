@@ -11,7 +11,18 @@ exports.kite_detail = async function (req, res) {
         res.send(`{"error": document for id ${req.params.id} not found`);
     }
 };
-
+exports.kite_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await kite.findById( req.query.id)
+    res.render('kitedetail',
+    { title: 'kite Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
 // VIEWS 
 // Handle a show all view 
 exports.kite_view_all_Page = async function (req, res) {
