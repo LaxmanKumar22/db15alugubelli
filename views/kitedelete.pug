@@ -7,7 +7,7 @@ block content
     h2 No instance to delete 
   else 
     - let kiteid = toShow._id 
-    - let kite_Brand = toShow.kite_Brand 
+    - let kite_Brand = toShow.Brand 
     - let kitecolor = toShow.color 
     - let kiteprice = toShow.price 
     - let actionid = "/resource/kites/" + kiteid 
@@ -39,9 +39,9 @@ block content
       console.log("starting delete") 
       // delete first 
       fetch(actionid, { 
-        method: 'DELETE'      // Don't need a body for the delete 
+        method: 'DELETE'     
       }).then((resp) => { 
-        return resp.json(); // or resp.text() or whatever the server sends 
+        return resp.text(); // or resp.text() or whatever the server sends 
       }).then((body) => { 
         alert("Delete succeded") 
         window.location.href='/kites' 
