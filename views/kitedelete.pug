@@ -1,53 +1,55 @@
-extends layout 
- 
-block content 
-  h1= title 
- 
-  if (toShow == null) 
-    h2 No instance to delete 
-  else 
-    - let kiteid = toShow._id 
-    - let kite_Brand = toShow.Brand 
-    - let kitecolor = toShow.color 
-    - let kiteprice = toShow.price 
-    - let actionid = "/resource/kites/" + kiteid 
-    script let actionid = "#{actionid}" 
-    div 
-      div.row 
-        div(class='kiteAttr mr-3') kite ID is: 
-        div #{kiteid} 
-      div.row 
-        div(class='kiteAttr mr-3') kite Brand is: 
-        div #{kite_Brand} 
-      div.row 
-        div(class='kiteAttr mr-3') kite price is: 
-        div #{kiteprice} 
-      div.row 
-        div(class='kiteAttr mr-3') kite color is: 
-        div #{kitecolor} 
- 
-    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
-    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
- 
-  script. 
-    function cancel() { 
-      // Go back to the home page for the kite collection 
-      window.location.href='/kites' 
-    } 
-  script. 
-    function deleteOnid() { 
-      console.log("starting delete") 
-      // delete first 
-      fetch(actionid, { 
-        method: 'DELETE'     
-      }).then((resp) => { 
-        return resp.text(); // or resp.text() or whatever the server sends 
-      }).then((body) => { 
-        alert("Delete succeded") 
-        window.location.href='/kites' 
-        // TODO handle body 
-      }).catch((error) => { 
-        // TODO handle error 
-        alert("Delete failed " + error ) 
-      }); 
-    } 
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let kiteid = toShow._id
+    - let kiteBrand = toShow.Brand
+    - let kiteprice = toShow.price
+    - let kitecolor = toShow.color
+    - let actionid = "/resource/kite/" + kiteid
+
+    script let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='kiteAttr mr-3') kite ID is:
+        div(class='newAttr') #{kiteid}
+      div.row
+        div(class='kiteAttr mr-3') kite Brand is:
+        div(class='newAttr') #{kiteBrand}
+      div.row
+        div(class='kiteAttr mr-3') kite price is:
+        div(class='newAttr') #{kiteprice}
+      div.row
+        div(class='kiteAttr mr-3') kite color is:
+        div(class='newAttr') #{kitecolor}
+      
+
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script.
+    function cancel() {
+      // Go back to the home page for the costume collection
+      window.location.href='/kite'
+    }
+  script.
+    function deleteOnid() {
+      console.log("Deleting the Resource")
+      // delete first
+      fetch(actionid, {
+        method: 'DELETE'      // Don't need a body for the delete
+      }).then((resp) => {
+        return resp.json();   // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/kite'
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Delete failed " + error )
+      });
+    }

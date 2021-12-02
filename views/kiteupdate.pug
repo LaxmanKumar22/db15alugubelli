@@ -1,46 +1,47 @@
-extends layout 
- 
-block content 
-  h1(class="text-center")= title 
-  if (toShow == null) 
-    h2 No instance to delete 
-  else 
-    - let kiteid = toShow._id 
-    - let kite_Brand = toShow.Brand 
-    - let kitecolor = toShow.color 
-    - let kiteprice = toShow.price 
-    
-    div.row(class='text-center mb-2') 
-        div.mr-1 ID is 
-        div #{kiteid} 
-    - let actionid = "/resource/kites/" + kiteid 
-    form(id='kiteForm',class="text-center",  action= actionid, method="PUT") 
-        div.form-group 
-            label.kiteAttr(for='Brand') kite Brand 
-            input#Brand(type='text', name='Brand', value= kite_Brand ) 
-        div.form-group 
-            label.kiteAttr(for='color') kite color
-            input#color(type='text', name='color', value= kitecolor ) 
-        div.form-group 
-            label.kiteAttr(for='price') kite price 
-            input#price(type='number', name='price', value= kiteprice ) 
-        input(type="submit" class="btn btn-warning m-2") 
-    
-    script. 
-        document.forms['kiteForm'].addEventListener('submit', (event) => { 
-        event.preventDefault(); 
-        // TODO do something here to show user that form is being submitted 
-        fetch(event.target.action, { 
-            method: 'PUT', 
-            body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
-        }).then((resp) => { 
-            return resp.text(); // or resp.text() or whatever the server sends 
-        }).then((body) => { 
-            alert("Update succeded") 
-            // TODO handle body 
-        }).catch((error) => { 
-            // TODO handle error 
-            alert("Update failed " + error ) 
-        }); 
-        }); 
-    
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let kiteid = toShow._id
+    - let kiteBrand = toShow.Brand
+    - let kiteprice = toShow.price
+    - let kitecolor = toShow.color
+  
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{kiteid}
+    - let actionid = "/resource/kite/" + kiteid
+    form(id='kiteForm', action= actionid, method="PUT")
+      div.form-group
+          label.kiteAttr(for='Brand') kite Brand
+          input#Brand(type='text', name='Brand', value= kiteBrand )
+      div.form-group
+          label.kiteAttr(for='price') kite price
+          input#price(type='number', name='price', value= kiteprice )
+      div.form-group
+          label.kiteAttr(for='color') kite color
+          input#color(type='text', name='color', value= kitecolor )
+      input(type="submit")
+
+  script.
+    document.forms['kiteForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      console.log(event.target)
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+      });
+    });
